@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="700" height="700"></canvas>
+    <div id="user_input">
+        <div>
+          <label for="image_src">文字1</label>
+          <input type="text" id="messageText1">
+        </div>
+        
+        <div>
+          <label for="image_src">文字2</label>
+          <input type="text" id="messageText2">
+        </div>
+
+        <button id="button">画像作成</button>
+      </div>
+    <script>
+      const messageText1 = document.getElementById("messageText1");
+      const messageText2 = document.getElementById("messageText2");
+
+      // ユーザーが画像のURLや画像に埋め込むテキスト内容、位置を指定できるようにする
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      let flg = false;
+      function drawImage() {
+        ctx.font = "20px, sans-serif";
+        for (let i = 0; i < 20; i++) {
+          for(let j = 0; j < 20; j++) {
+            if (Math.random() * 100 > 99 && !flg) {
+              ctx.fillText(messageText2.value, 20 * i, 20 * j);
+              flg = true;
+            } else {
+              ctx.fillText(messageText1.value, 30 * i, 30 * j);
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

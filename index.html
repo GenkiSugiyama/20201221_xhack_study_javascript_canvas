@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" onclick="moveText(event)" width="400" height="400"></canvas>
+    <div id="user_input">
+        <div>
+          <label for="image_src">画像のURLを入力</label>
+          <input type="text" id="image_src">
+        </div>
+        
+        <div>
+          <label for="text">入力内容</label>
+          <input type="text" id="text">
+        </div>
+        
+        <div>
+          <label for="position-x">横の位置</label>
+          <input type="number" id="position-x">
+        </div>
+        
+        <div>
+          <label for="position-y">縦の位置</label>
+          <input type="number" id="position-y">
+        </div>
+
+        <div>
+          <label for="position-y">フォンサイズ</label>
+          <input type="number" id="fontSize">
+        </div>
+  
+        <button id="button">画像作成</button>
+      </div>
+    <script>
+      // キャンバス要素を取得
+      // const canvas = document.getElementById("canvas");
+      // キャンパスにキャンバス要素を描画するためのコンテキストを取得するメソッドgetContext('2d') 2dは二次元グラフィックを描画する時に指定する お作法的な記述 canvasオブジェクトが持っているgetContextメソッド
+      // const ctx = canvas.getContext("2d");
+
+      // Imageインスタンス作成
+      // const img1 = new Image();
+      // const img2 = new Image();
+
+      // img1.src = document.getElementById("image_src").value;
+      // img2.src = "https://www.bs-tbs.co.jp/zenigatarei/images/end_main.jpg"
+
+      // img1.onload = () => {
+        // canvas上に二次元グラフィックスを描画する
+        // ctx.drawImage(img1, 0, 0);
+        // canvas上にテキストを埋め込む
+        // ctx.fillText("文字列", 10, 10)
+        // img2.onload = () => {
+        //   ctx.drawImage(img2, 100, 0);
+        // }
+      // }
+
+      // ユーザーが画像のURLや画像に埋め込むテキスト内容、位置を指定できるようにする
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const img = new Image();
+      const imageSrc = document.getElementById("image_src");
+      const messageText = document.getElementById("text");
+      const messagePositionX = document.getElementById("position-x");
+      const messagePositionY = document.getElementById("position-y");
+      const fontSize = document.getElementById("fontSize");
+
+      button = document.getElementById("button");
+      button.onclick = () => {
+        img.src = imageSrc.value;
+        text = messageText.value;
+        x = messagePositionX.value;
+        y = messagePositionY.value;
+        size = fontSize.value;
+        ctx.drawImage(img, 0, 0);
+        ctx.font = `${size}px, serif`;
+        ctx.fillText(text, x, y);
+      }
+
+      // srcプロパティに画像の取得先のパスをセットする
+      function drawImage(x, y) {
+        img.src = imageSrc.value;
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0);
+          // 文字を埋め込む
+          ctx.font = `${fontSize.value}px sans-serif`;
+          ctx.fillText(messageText.value, x, y);
+        }
+      }
+
+      function moveText(event) {
+        console.log(event);
+        drawImage(event.clientX, event.clientY);
+      }
+    </script>
+  </body>
+</html>
